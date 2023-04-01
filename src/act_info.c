@@ -549,12 +549,17 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort,
 }
 
 
-void show_char_to_char_0( CHAR_DATA *victim, CHAR_DATA *ch, bool skanowanie,
-			  bool skrot )
+void format_char_to_char_0( char *buf, int wielkosc_buf, CHAR_DATA *victim,
+			    CHAR_DATA *ch, bool skanowanie, bool skrot )
 {
-    char buf[ MSL ];
     char samoimie[ MIL ]; /* imie moze miec 12 liter, tytul 60 - wejdzie */
     bool zamaskowany;
+
+    if ( wielkosc_buf < MSL )
+    {
+	bug( "wielkosc_buf = %d < MSL", wielkosc_buf );
+	return;
+    }
 
     strcpy( buf, skanowanie ? "  " : "{E" );
 
@@ -677,7 +682,6 @@ void show_char_to_char_0( CHAR_DATA *victim, CHAR_DATA *ch, bool skanowanie,
 	if ( !zamaskowany && !IS_NPC( victim ) && victim->pcdata->title )
 	    strcat( buf, victim->pcdata->title );
 	strcat( buf, "\n\r{x" );
-	send_to_char( buf, ch );
 	return;
     }
 
@@ -693,7 +697,6 @@ void show_char_to_char_0( CHAR_DATA *victim, CHAR_DATA *ch, bool skanowanie,
     {
 	strcat( buf, victim->long_descr );
 	strcat( buf, "{x\n\r" );
-	send_to_char( buf, ch );
 	return;
     }
 
@@ -714,7 +717,6 @@ void show_char_to_char_0( CHAR_DATA *victim, CHAR_DATA *ch, bool skanowanie,
 
 	    strcat( buf, buf2 );
 	    strcat( buf, "{x\n\r" );
-	    send_to_char( buf, ch );
 	    return;
 	}
     }
@@ -789,11 +791,20 @@ void show_char_to_char_0( CHAR_DATA *victim, CHAR_DATA *ch, bool skanowanie,
 	    break;
     }
 
-    send_to_char( buf, ch );
-
     return;
 }
 
+void show_char_to_char_0( CHAR_DATA *victim, CHAR_DATA *ch, bool skanowanie,
+			  bool skrot )
+{
+    char buf[ MSL ];
+
+    buf[ 0 ] = '\0';
+    format_char_to_char_0( buf, MSL, victim, ch, skanowanie, skrot );
+
+    send_to_char( buf, ch );
+    return;
+}
 
 void show_char_to_char_1( CHAR_DATA *victim, CHAR_DATA *ch )
 {
@@ -919,10 +930,13 @@ void show_char_to_char_1( CHAR_DATA *victim, CHAR_DATA *ch )
 }
 
 
-void show_char_to_char( CHAR_DATA *list, CHAR_DATA *ch, bool skrot )
+void format_char_to_char( char* buf, CHAR_DATA *list, CHAR_DATA *ch, bool skrot )
 {
     CHAR_DATA *rch;
+    char bufor[ MSL ];
     bool widzi = FALSE;
+
+    bufor [ 0 ] = '\0';
 
     if ( !list || PP( ch ) )
 	return;
@@ -952,9 +966,11 @@ void show_char_to_char( CHAR_DATA *list, CHAR_DATA *ch, bool skrot )
 	      || ( ch->pcdata->condition[ COND_DRUNK ] < number_percent( ) + 20
 	       && ( !IS_AFFECTED( ch, AFF_DEZORIENTACJA )
 		 || number_percent( ) > 20 ) ) )
-		show_char_to_char_0( rch, ch, FALSE, skrot );
+		format_char_to_char_0( bufor, MSL, rch, ch, FALSE, skrot );
 	    else
-		ch_printf( ch, "{E%s{x", urojone_moby[ number_bits( 4 ) ] );
+		sprintf( bufor, "{E%s{x", urojone_moby[ number_bits( 4 ) ] );
+
+	    strcat( buf, bufor );
 	}
 	else if ( room_is_dark( ch->in_room )
 	  /* Lam 4.12.2004, Muzgus zauwazyl, ze czerwone oczy patrza na niego
@@ -963,13 +979,23 @@ void show_char_to_char( CHAR_DATA *list, CHAR_DATA *ch, bool skrot )
 	  && HAS_INFRAVISION( rch )
 	  && ( IS_NPC( rch ) || !IS_SET( rch->act, PLR_WIZINVIS ) ) )
 	{
-	    send_to_char( "Widzisz wlepion`a w ciebie par`e czerwonych oczu!\n\r", ch );
+	    strcat( buf, "Widzisz wlepion`a w ciebie par`e czerwonych oczu!\n\r" );
 	}
     }
 
     return;
 }
 
+void show_char_to_char( CHAR_DATA *list, CHAR_DATA *ch, bool skrot )
+{
+    char buf[ MSL * 4 ];
+
+    buf[ 0 ] = '\0';
+    format_char_to_char( buf, list, ch, skrot );
+    send_to_char( buf, ch );
+
+    return;
+}
 
 void show_char_to_char_scan( CHAR_DATA *list, CHAR_DATA *ch )
 {
