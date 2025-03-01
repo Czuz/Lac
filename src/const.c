@@ -111,7 +111,7 @@ const char *tablica_kolorow[ 4 ][ MAX_COLOUR ] =
 /*
  * Tablica sluzaca do obslugi roznych kodowan znakow.
  * Nalezy napisac kod konwertujacy takie tablice (ktore trzeba przeszukiwac) na
- * tablice typu: tablica[ o ] = 'Ã³'.
+ * tablice typu: tablica[ o ] = 'ó'.
  */
 const char *polska_tablica[ 5 ][ 18 ] =
 {
