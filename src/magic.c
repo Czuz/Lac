@@ -225,8 +225,10 @@ KOMENDA( do_cast )
     char       arg2[ MAX_INPUT_LENGTH ];
     int        mana;
     int        sn;
+    int        learned;
 
-    if ( !IS_NPC( ch ) && !class_table[ ch->klasa ].fMana && ch->level < L_APP )
+    if ( !IS_NPC( ch ) && !class_table[ ch->klasa ].fMana
+      && ch->level < L_APP && !IS_SET( race_table[ ch->race ].race_abilities, RACE_CASTER ) )
     {
 	send_to_char( "Nie znasz si`e na czarowaniu.\n\r", ch );
 	return;
@@ -244,6 +246,11 @@ KOMENDA( do_cast )
 	return;
     }
 
+    sn = skill_lookup_pl( arg1 );
+    learned = UMAX(
+	!IS_NPC( ch ) ? ch->pcdata->learned[ sn ] : 0,
+	ch->race == zr_diabelstwo && skill_table[ sn ].spell_fun == spell_strefa_cienia ? 25 + 50 * ch->level / 100 : 0 );
+
 	 /* Lam: zabezpieczenie przed reserved: */
     if ( ( sn = skill_lookup_pl( arg1 ) ) < 1
 	|| !skill_table[ sn ].spell_fun /* to umiejetnosc, a nie czar */
@@ -251,7 +258,7 @@ KOMENDA( do_cast )
 	|| ( !IS_NPC( ch )
 	  && ch->level < skill_table[ sn ].skill_level[ ch->klasa ]
 	  && ch->level < skill_table[ sn ].multi_level[ ch->klasa ]
-	  && !ch->pcdata->learned[ sn ] ) )
+	  && !learned ) )
     {
 	send_to_char( "Nie mo`zesz tego zrobi`c.\n\r", ch );
 	return;
@@ -260,7 +267,7 @@ KOMENDA( do_cast )
     if ( !IS_NPC( ch )
       && ch->level < skill_table[ sn ].skill_level[ ch->klasa ]
       && !ma_w_multi( ch, sn )
-      && !ch->pcdata->learned[ sn ] )
+      && !learned )
     {
 	send_to_char( "Nie mo`zesz tego zrobi`c.\n\r", ch );
 	return;
@@ -442,7 +449,7 @@ KOMENDA( do_cast )
     target_name = argument;
 
     if ( !IS_NPC( ch )
-      && ( number_percent( ) > ch->pcdata->learned[ sn ]
+      && ( number_percent( ) > learned
 	|| ( IS_AFFECTED( ch, AFF_DEZORIENTACJA )
 	  && number_percent( ) > 80 ) ) )
     {
