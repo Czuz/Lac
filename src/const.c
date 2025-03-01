@@ -111,7 +111,7 @@ const char *tablica_kolorow[ 4 ][ MAX_COLOUR ] =
 /*
  * Tablica sluzaca do obslugi roznych kodowan znakow.
  * Nalezy napisac kod konwertujacy takie tablice (ktore trzeba przeszukiwac) na
- * tablice typu: tablica[ o ] = 'ó'.
+ * tablice typu: tablica[ o ] = 'ï¿½'.
  */
 const char *polska_tablica[ 5 ][ 18 ] =
 {
@@ -490,7 +490,7 @@ const	struct	  race_type	  race_table	  [ MAX_RACE ]	  =
 	ODD_POWIETRZEM, POR_LAD,
 	4, 320, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, "pi`e`s`c", 2,
-	"Githyanki Vampire Werewolf Mindflayer",
+	"Githyanki Vampire Werewolf Mindflayer Tiefling",
 	"", "",
 	WRL_HS, PAPU_DOWOLNE,
 	P_HS, 0
@@ -503,7 +503,7 @@ const	struct	  race_type	  race_table	  [ MAX_RACE ]	  =
 	ODD_POWIETRZEM, POR_LAD,
 	4, 240, -2, 3, 2, 1, -2,
 	0, 4, 0, 0, 0, "pi`e`s`c", 2,
-	"Drow Ogre Orc Kobold Troll Hobgoblin Dragon Vampire Werewolf Goblin Halfkobold Duergar",
+	"Drow Ogre Orc Kobold Troll Hobgoblin Dragon Vampire Werewolf Goblin Halfkobold Duergar Tiefling",
 	"", "",
 	WRL_HS, PAPU_DOWOLNE,
 	P_HS, 0
@@ -515,7 +515,7 @@ const	struct	  race_type	  race_table	  [ MAX_RACE ]	  =
 	ODD_POWIETRZEM, POR_LAD,
 	4, 280, 0, 2, 1, 0, -1,
 	0, 2, 0, 0, 0, "pi`e`s`c", 2,
-	"Drow Ogre Orc Kobold Troll Hobgoblin Dragon Vampire Werewolf Goblin Duergar",
+	"Drow Ogre Orc Kobold Troll Hobgoblin Dragon Vampire Werewolf Goblin Duergar Tiefling",
 	"", "",
 	WRL_HS, PAPU_DOWOLNE,
 	P_HS, 0
@@ -528,7 +528,7 @@ const	struct	  race_type	  race_table	  [ MAX_RACE ]	  =
 	ODD_POWIETRZEM, POR_LAD,
 	4, 240, -1, 1, 2, 1, 0,
 	0, 4, 0, 0, 0, "pi`e`s`c", 2,
-	"Elf Halfelf Hobbit Githyanki Vampire Werewolf Duergar",
+	"Elf Halfelf Hobbit Githyanki Vampire Werewolf Duergar Tiefling",
 	"", "",
 	WRL_HS, PAPU_DOWOLNE,
 	P_HS, 0
@@ -541,7 +541,7 @@ const	struct	  race_type	  race_table	  [ MAX_RACE ]	  =
 	ODD_POWIETRZEM, POR_LAD,
 	3, 320, 2, 0, 0, -1, 1,
 	0, 0, 0, 0, 1, "pi`e`s`c", 2,
-	"Giant Ogre Orc Kobold Minotaur Troll Hobgoblin Dragon Vampire Werewolf Goblin Halfkobold",
+	"Giant Ogre Orc Kobold Minotaur Troll Hobgoblin Dragon Vampire Werewolf Goblin Halfkobold Tiefling",
 	"", "",
 	WRL_HS, PAPU_DOWOLNE,
 	P_HS, 0
@@ -553,7 +553,7 @@ const	struct	  race_type	  race_table	  [ MAX_RACE ]	  =
 	ODD_POWIETRZEM, POR_LAD,
 	3, 320, 1, 0, 0, 0, 1,
 	0, 0, 0, 0, 0, "pi`e`s`c", 2,
-	"Giant Ogre Orc Kobold Minotaur Troll Hobgoblin Dragon Vampire Werewolf Goblin",
+	"Giant Ogre Orc Kobold Minotaur Troll Hobgoblin Dragon Vampire Werewolf Goblin Tiefling",
 	"", "",
 	WRL_HS, PAPU_DOWOLNE,
 	P_HS, 0
@@ -566,7 +566,7 @@ const	struct	  race_type	  race_table	  [ MAX_RACE ]	  =
 	ODD_POWIETRZEM, POR_LAD,
 	3, 240, 0, 1, 0, 3, -1,
 	0, 0, 0, 0, 0, "pi`e`s`c", 2,
-	"Giant Ogre Orc Kobold Minotaur Troll Hobgoblin Dragon Vampire Werewolf Goblin Halfkobold",
+	"Giant Ogre Orc Kobold Minotaur Troll Hobgoblin Dragon Vampire Werewolf Goblin Halfkobold Tiefling",
 	"", "",
 	WRL_STOPY, PAPU_DOWOLNE,
 	P_HS, 0
@@ -578,7 +578,7 @@ const	struct	  race_type	  race_table	  [ MAX_RACE ]	  =
 	ODD_POWIETRZEM, POR_LAD,
 	3, 240, -1, 1, 1, 2, -1,
 	0, 4, 0, 0, 0, "pi`e`s`c", 2,
-	"Drow Ogre Orc Kobold Troll Hobgoblin Dragon Vampire Werewolf Goblin Duergar",
+	"Drow Ogre Orc Kobold Troll Hobgoblin Dragon Vampire Werewolf Goblin Duergar Tiefling",
 	"", "",
 	WRL_HS, PAPU_DOWOLNE,
 	P_HS, 0
@@ -922,6 +922,19 @@ const	struct	  race_type	  race_table	  [ MAX_RACE ]	  =
 	"", "",
 	WRL_HS, PAPU_WSZYSTKO | PAPU_MIESNE | PAPU_RYBNE,
 	P_FLAKI | P_GLOWA | P_RECE | P_NOGI | P_SERCE | P_JEZYK | P_ZAB, 0
+    },
+
+    { "diabelstwo", "diabelstwa", "diabelstwu", "diabelstwo", "diabelstwem",
+	"diabelstwie", "diabelstwo", "diabelstwo", "tiefling",
+	RACE_INFRAVISION | RACE_WEAPON_WIELD | RACE_OPENS_DOORS
+	 | RACE_PROTECTION | RACE_POISONIMM | RACE_CASTER,
+	ODD_POWIETRZEM, POR_LAD,
+	4, 320, -1, 2, 0, 0, 0,
+	0, 4, 0, 0, 0, "pi`e`s`c", 2,
+	"Githyanki Vampire Werewolf Mindflayer",
+	"", "",
+	WRL_GLOWA, PAPU_MIESNE,
+	P_HS | P_OGON | P_ROG, &zr_diabelstwo
     },
 
     { "przedmiot", "przedmiotu", "przedmiotowi", "przedmiot", "przedmiotem",

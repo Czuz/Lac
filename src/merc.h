@@ -1402,6 +1402,7 @@ struct czesc_ciala
 #define RACE_BEZ_WECHU			b23	/* Lam */
 #define RACE_WOLI_LATAC			b24	/* Lam */
 #define RACE_WOLI_PLYWAC		b25	/* Lam */
+#define RACE_CASTER			b26	/* Ulryk: przedstawiciele rasy potrafia czarowac */
 
 /* oddychanie */
 #define ODD_POWIETRZEM			b01
@@ -2989,6 +2990,12 @@ extern	int	gsn_swiety_msciciel;
  */
 extern	int	zr_bog;
 extern	int	zr_byk;
+/*
+ * W przypadku rozpowszechnienia wsparcia dla czarow rasowych
+ * nalezy uwzglednic dedykowana strukture w race_type
+ * Ulryk 28.02.25
+ */
+extern	int	zr_diabelstwo;
 extern	int	zr_harpia;
 extern	int	zr_jednorozec;
 extern	int	zr_jez;

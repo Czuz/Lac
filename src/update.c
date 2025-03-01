@@ -296,7 +296,7 @@ void uzyj( CHAR_DATA *ch, int sn, const char *co )
     if ( IS_NPC( ch ) )
 	return;
 
-    if ( ch->pcdata->learned[ sn ] >= 100 )
+    if ( !ch->pcdata->learned[ sn ] || ch->pcdata->learned[ sn ] >= 100 )
 	return;
 
     ++ch->pcdata->used[ sn ];

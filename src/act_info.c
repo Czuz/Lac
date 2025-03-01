@@ -4156,7 +4156,7 @@ KOMENDA( do_practice )
 	{
 	    sn = tss->sn;
 
-	    if ( ch->pcdata->learned[ sn ] )
+	    if ( ch->pcdata->learned[ sn ] || ( ch->race == zr_diabelstwo && skill_table[ sn ].spell_fun == spell_strefa_cienia ) )
 	    {
 		if ( !bylo )
 		{
@@ -4178,6 +4178,12 @@ KOMENDA( do_practice )
 		}
 
 		if ( nie_ma
+		  && ch->pcdata->learned[ sn ] < 25 + 50 * ch->level / 100
+		  && ch->race == zr_diabelstwo && skill_table[ sn ].spell_fun == spell_strefa_cienia )
+		    sprintf( buf, "{W%s+ %3d%%{x",
+			wyrownaj( skill_table[ sn ].pl_name, 19 ),
+			UMAX( ch->pcdata->learned[ sn ], 25 + 50 * ch->level / 100 ) );
+		else if ( nie_ma
 		  && ch->level < skill_table[ sn ].skill_level[ ch->klasa ] )
 		    sprintf( buf, "{W%s* %3d%%{x",
 			wyrownaj( skill_table[ sn ].pl_name, 19 ),

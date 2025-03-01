@@ -357,6 +357,7 @@ int	gsn_teleport;
  */
 int	zr_bog;
 int	zr_byk;
+int	zr_diabelstwo;
 int	zr_harpia;
 int	zr_jednorozec;
 int	zr_jez;
