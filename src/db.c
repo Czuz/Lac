@@ -4168,8 +4168,11 @@ void load_imiona( void )
 	im->blokujacy = fread_string( plik, &stat );
 	im->kiedy = fread_number( plik, &stat );
 
-	if ( strlen_pl( im->imie ) >= 3
-	  && strlen_pl( im->imie ) <= MAX_DLUG_IMIENIA )
+	/*
+	 * https://github.com/Lamieur/Lac/issues/14
+	 * Warunek powinien byc spojny z tym, ktory jest w akcji dodaj w do_wymus()
+	 */
+	if ( czy_zdatny_plik( im->imie ) )
 	{
 	    if ( im->powod < 0
 	      || im->powod > MAX_POWODY
@@ -4186,6 +4189,15 @@ void load_imiona( void )
 	    sprintf( bug_buf, "Imie %s nie moze byc imieniem, ignoruje w " IMIONA_FILE ".",
 		im->imie );
 	    cbug( bug_buf, 0 );
+
+	    /*
+	     * https://github.com/Lamieur/Lac/issues/14
+	     * Usuniecie wycieku pamieci
+	     */
+	    im->nast = imiona_wolne;
+	    imiona_wolne = im;
+	    free_string( im->imie );
+	    free_string( im->blokujacy );
 	}
 
 	if ( !feof( plik ) )
